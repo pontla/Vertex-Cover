@@ -10,47 +10,60 @@
 
 int main( int argc, char * argv[] )
 {
-	int  nbiter = 500, R = 1;
-	//std::vector<double> * run, * zAlpha;
-	int bDisplay = 10, Nalpha = 1;
-	double alpha = 0.75;
-
+	int  time = 3, nodes=0 , edges = 0;
+	
 	Arguments args( argc, argv );
 	std::ifstream file;
 	std::string rmspace( 60, ' ' );
 
-	if ( !args.exists( "i" ) )
+	if ( !args.exists( "algo" ) || !args.exists( "n" ) || !args.exists( "p" ))
 	{
 		std::cout << "Usage: " << std::endl << '\t'
-			<< argv[0] << " -i <fichier> [-alpha <alpha>] [-nbiter <nbiter>]" << std::endl
-			<< "\t\t[-nbruns <nbruns>] [-periode <Nalpha>] [-pr]" << std::endl
-			<< "\t\t[-display <disp>]" << std::endl
+			<< argv[0] << " [-n <#nodes>] [-p <#edges>] [-algo <algorithm>] [-time <time>]" << std::endl
 			<< std::endl
-			<< "\t-i <fichier>" << std::endl
-			<< "\t\tLe fichier contenant les donnees du probleme." << std::endl
-			<< "\t-alpha <alpha>" << std::endl
-			<< "\t\tListe des valeurs de alpha separees par des virgules," << std::endl
-			<< "\t\tsans espace, exemple : '0.7,0.8,0.9'. (defaut:" << alpha << ")" << std::endl
-			<< "\t\t(a partir de 2 elements, Reactive GRASP est active)." << std::endl
-			<< "\t-nbiter <nbiter>" << std::endl
-			<< "\t\tNombre d'iterations a chaque run." << std::endl
-			<< "\t\t(defaut:" << nbiter << ")" << std::endl
-			<< "\t-nbruns <nbruns>" << std::endl
-			<< "\t\tNombre de runs." << std::endl
-			<< "\t\t(defaut:" << R << ")" << std::endl
-			<< "\t-periode <Nalpha>" << std::endl
-			<< "\t\tPeriode pour laquelle les probabilites sont" << std::endl
-			<< "\t\trecalculees (uniquement Reactive GRASP)." << std::endl
-			<< "\t\t(defaut:" << Nalpha << ")" << std::endl
-			<< "\t-pr" << std::endl
-			<< "\t\tActive le Path Relinking." << std::endl
-			<< "\t\t(defaut:desactive)" << std::endl
-			<< "\t-display <disp>" << std::endl
-			<< "\t\tAffiche z* tous les <disp> iterations." << std::endl
-			<< "\t\tPour desactiver, donner <disp> = 0." << std::endl
-			<< "\t\t(defaut:" << bDisplay << ")" << std::endl
+			
+			<< "\t-n <#nodes>" << std::endl
+			<< "\t\tNombre de noeuds que le programme generera." << std::endl
+			
+			<< "\t-p <#edges>" << std::endl
+			<< "\t\tNombre d'aretes sachant \"n\", étant le nombre de noeuds" << std::endl
+			
+			<< "\t-algo <algorithm>" << std::endl
+			<< "\t\tAlgorithm de VC a executer :" << std::endl
+			<< "\t\t\t -[kernel] : pour l'algorithme de Kernelization" << std::endl
+			<< "\t\t\t -[arb] : pour l'algorithme VCA" << std::endl
+			<< "\t\t\t -[2approx] : pour l'algorithme de 2-approximation" << std::endl
+			<< "\t\t\t -[heuristique] : pour l'algorithme heuristique au choix" << std::endl
+
+			<< "\t-time <time>" << std::endl
+			<< "\t\tTemps pour un run." << std::endl
+			<< "\t\t(defaut:" << time << "minutes)" << std::endl
+			
 			<< std::endl;
 		return 0;
 	}
+	// Parsage des arguments
+		// max itérations
+	if ( args.exists( "n" ) )
+	{
+		std::istringstream iss( args[ "n" ] );
+		iss >> nodes;
+	}
+	
+	if ( args.exists( "p" ) )
+	{
+		std::istringstream iss( args[ "p" ] );
+		iss >> edges;
+	}
+	
+
+	if ( args.exists( "time" ) )
+	{
+		std::istringstream iss( args[ "time" ] );
+		iss >> time;
+	}
+	
+	std::cout << time << " - " << edges << " - " << nodes << std::endl;
+	
 	return 0;
 }
