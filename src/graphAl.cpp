@@ -1,36 +1,58 @@
-/*class graphAl{
-public:
-    // Constructeur
-    graphAl::graphAl(int n, int p){
-	int cpt=0;
-	nb_nodes=n;
-	nb_edges=p;	
-	for(cpt=0;cpt<n;cpt++) cardG[cpt]=0;
-    }
-    // Destructeur 
-     graphAl::~graphAl(){
-	
-    }
-    
-    // Méthodes    
-    void  graphAl::creerGraph(int nb_nodes, int nb_edges){
-	
-    }
-    
-    void  graphAl::updateCardinalite(int u, int v){
-	
-    }
-    
-    //Accesseurs 
-     graphAl::setGraph(std::vector<std::vector<int> > & myGraph){
-	myGraph = graph;
-    }
+#include "graphAl.hpp"
+int cpt;
 
-    // Attributs
-public:
-   std::vector<std::vector<int> > graph;
-   std::vector<int> cardG;
-private:
-   int nb_nodes;
-   int nb_edges;
-}*/
+void update_Card(graph &g){
+    
+}
+
+void construct_Aleatoire(graph &g){  
+    for(cpt=0; cpt<g.n; cpt++)
+	addNode(g);
+}
+
+int compute_Edges(graph g){
+    int nbEdges = 0;
+    
+    return nbEdges;
+}
+
+int compute_Max_Card(graph g){
+    int maxCard = 0 ;
+    
+    return maxCard;
+}
+
+double compute_AVG_Card(graph g){
+    double average =0.0;
+    
+    return average;
+}
+
+void addEdge(graph &g, int u , int v){
+    
+}
+
+void addNode(graph &g){
+    vector<vector<int> > graph0;
+    vector<int> node;
+    graph0 = g.graphNE; 
+    graph0.push_back(node);
+    g.graphNE = graph0;
+}
+
+void printVect(vector<int> p_vector){
+    unsigned int cpt;
+    for(cpt=0 ; cpt<p_vector.size(); cpt++){
+        cout << p_vector[cpt]+1 << " " ;
+    }
+    cout << endl;
+}
+
+void printGraph(graph g){
+    vector<vector<int> > grahToPrint = g.graphNE;
+    unsigned int cpt;
+    for(cpt=0 ; cpt<grahToPrint.size(); cpt++){
+        cout << cpt << " : ";
+        printVect(grahToPrint.at(cpt));
+    }
+}
