@@ -10,13 +10,22 @@
 
 int main( int argc, char * argv[] )
 {
-	int  time = 3, nodes=0 , edges = 0;
-	
+	int  time = 3, nodes=0 , edges = 0, algo = 0;
+	bool test = false;
+	std::string algorithme;
 	Arguments args( argc, argv );
 	std::ifstream file;
 	std::string rmspace( 60, ' ' );
 
-	if ( !args.exists( "algo" ) || !args.exists( "n" ) || !args.exists( "p" ))
+	if ( args.exists( "algo" ) )
+	{
+		std::istringstream iss ( args[ "algo" ] );
+		iss >> algorithme;
+		if(algorithme=="kernel"||algorithme=="arb"||algorithme=="twoapprox"||algorithme=="heuristique")	test = true;
+		    
+	}
+	
+	if ( !args.exists( "algo" ) || !args.exists( "n" ) || !args.exists( "p" )|| !test)
 	{
 		std::cout << "Usage: " << std::endl << '\t'
 			<< argv[0] << " [-n <#nodes>] [-p <#edges>] [-algo <algorithm>] [-time <time>]" << std::endl
@@ -32,7 +41,7 @@ int main( int argc, char * argv[] )
 			<< "\t\tAlgorithm de VC a executer :" << std::endl
 			<< "\t\t\t -[kernel] : pour l'algorithme de Kernelization" << std::endl
 			<< "\t\t\t -[arb] : pour l'algorithme VCA" << std::endl
-			<< "\t\t\t -[2approx] : pour l'algorithme de 2-approximation" << std::endl
+			<< "\t\t\t -[twoapprox] : pour l'algorithme de 2-approximation" << std::endl
 			<< "\t\t\t -[heuristique] : pour l'algorithme heuristique au choix" << std::endl
 
 			<< "\t-time <time>" << std::endl
@@ -42,6 +51,13 @@ int main( int argc, char * argv[] )
 			<< std::endl;
 		return 0;
 	}
+	
+	if( algorithme == "kernel") algo =0;
+	if( algorithme == "arb") algo =1;
+	if( algorithme == "twoapprox") algo =2;
+	if( algorithme == "heuristique") algo =3;
+	
+	
 	// Parsage des arguments
 		// max itérations
 	if ( args.exists( "n" ) )
@@ -63,7 +79,7 @@ int main( int argc, char * argv[] )
 		iss >> time;
 	}
 	
-	std::cout << time << " - " << edges << " - " << nodes << std::endl;
+	std::cout<< "Algo #"<< algo << "temps : "<< time << " -edges: " << edges << " -nodes " << nodes << std::endl;
 	
 	return 0;
 }
