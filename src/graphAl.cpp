@@ -1,10 +1,7 @@
 #include "graphAl.hpp"
-int cpt, cpt2;
-
-
-void update_Card(graph &g){
-    
-}
+unsigned int cpt, cpt2;
+vector<vector<int> > graphCpy;
+vector<int> edgeCpy;
 
 void construct_Rand(graph &g){  
     srand(time(NULL));
@@ -24,18 +21,32 @@ void construct_Rand(graph &g){
 
 int compute_Edges(graph g){
     int nbEdges = 0;
+
+    graphCpy = g.graphNE;
     
+    for(cpt=0; cpt<graphCpy.size() ; cpt++){
+	edgeCpy = graphCpy[cpt];
+	nbEdges += edgeCpy.size();
+    }
     return nbEdges;
 }
 
 int compute_Max_Card(graph g){
-    int maxCard = 0 ;
+    unsigned int maxCard = 0 ;
+    graphCpy = g.graphNE;
     
+    for(cpt=0; cpt<graphCpy.size() ; cpt++){
+	edgeCpy = graphCpy[cpt];
+	if(edgeCpy.size()>maxCard)
+	    maxCard = edgeCpy.size();
+    }
     return maxCard;
 }
 
 double compute_AVG_Card(graph g){
     double average =0.0;
+    
+    average = (double)compute_Edges(g) / g.n;
     
     return average;
 }

@@ -10,13 +10,12 @@ using namespace std;
 
 
 struct graph{
-    int n, algo;
+    unsigned int n, algo;
     double p;
     vector<vector<int > > graphNE ;
     vector<int> card;
 };
 
-void update_Card(graph &g);
 void construct_Rand(graph &g);
 int compute_Edges(graph g);
 int compute_Max_Card(graph g);
