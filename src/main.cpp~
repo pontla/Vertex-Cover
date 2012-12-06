@@ -11,8 +11,9 @@
 
 int main( int argc, char * argv[] )
 {
-	int  time = 3, nodes=0 , edges = 0, algo = 0;
-	bool test = false;
+	int  time = 3, nodes=0, algo = 0;
+	double edges;
+	bool test = false, pFunctN;
 	std::string algorithme;
 	Arguments args( argc, argv );
 	std::ifstream file;
@@ -30,10 +31,10 @@ int main( int argc, char * argv[] )
 		    
 	}
 	
-	if ( !args.exists( "algo" ) || !args.exists( "n" ) || !args.exists( "p" )|| !test)
+	if ( !args.exists( "algo" ) || !args.exists( "n" ) || !args.exists( "p" )|| !args.exists("pn") || !test)
 	{
 		std::cout << "Usage: " << std::endl << '\t'
-			<< argv[0] << " [-n <#nodes>] [-p <#edges>] [-algo <algorithm>] [-time <time>]" << std::endl
+			<< argv[0] << " [-n <#nodes>] [-p <#edges>] [-pn <bool>] [-algo <algorithm>] [-time <time>]" << std::endl
 			<< std::endl
 			
 			<< "\t-n <#nodes>" << std::endl
@@ -41,6 +42,9 @@ int main( int argc, char * argv[] )
 			
 			<< "\t-p <#edges>" << std::endl
 			<< "\t\tNombre d'aretes sachant \"n\", étant le nombre de noeuds" << std::endl
+			
+			<< "\t-pn <bool>" << std::endl
+			<< "\t\t0 si p ne depend pas de n, 1 sinon" << std::endl
 			
 			<< "\t-algo <algorithm>" << std::endl
 			<< "\t\tAlgorithm de VC a executer :" << std::endl
@@ -77,6 +81,12 @@ int main( int argc, char * argv[] )
 		iss >> edges;
 	}
 	
+	if (args.exists( "pn" ) )
+	{
+		std::istringstream iss( args[ "pn" ] );
+		iss >> pFunctN;
+		if( pFunctN ) 	edges /= nodes;
+	}
 
 	if ( args.exists( "time" ) )
 	{
@@ -93,9 +103,9 @@ int main( int argc, char * argv[] )
 	  * 	MAIN 
 	 **/
 	
-	std::cout<< "Algo #"<< algo << " temps : "<< time << " -edges : " << edges << " -nodes : " << nodes << std::endl;
+	std::cout<< "Algo #"<< algo << " temps : "<< time << " -edges : " << g.p << " -nodes : " << nodes << std::endl;
 	
-	construct_Aleatoire(g);
+	construct_Rand(g);
 	
 	printGraph(g);
 	
