@@ -102,7 +102,7 @@ int main( int argc, char * argv[] )
 	/**
 	  * 	MAIN 
 	 **/
-	
+	//std::cout << "TEST";
 	construct_Rand(g);
 	
 	printGraph(g);

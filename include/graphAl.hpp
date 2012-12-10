@@ -14,14 +14,22 @@ struct graph{
     double p;
     vector<vector<int > > graphNE ;
     vector<int> card;
+    vector<int> nodes;
 };
 
+//METHODES
 void construct_Rand(graph &g);
 int compute_Edges(graph g);
 int compute_Max_Card(graph g);
 double compute_AVG_Card(graph g);
 void addEdge(graph &g, int u , int v);
-void addNode(graph &g);
+void addNode(graph &g, int noeud);
+//void cpyNodes(graph g, graph &gprime, int u);
+//void cpyNodes(graph g, graph &gprime, int u, int v);
+//void cpyEdges(graph g, graph &gprime, int u);
+//void cpyEdges(graph g, graph &gprime, int u, int v);
+
+//PRINT 
 void printGraph(graph g);
 void printVect(vector<int> p_vector);
 #endif

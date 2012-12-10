@@ -8,7 +8,7 @@ void construct_Rand(graph &g){
     double random = 0.0 ; 
     
     for(cpt=0; cpt<g.n; cpt++){
-	addNode(g);
+	addNode(g, cpt);
     }
     for(cpt=0; cpt<g.n; cpt++){
 	for(cpt2=cpt+1; cpt2<g.n; cpt2++){
@@ -53,21 +53,46 @@ double compute_AVG_Card(graph g){
 
 void addEdge(graph &g, int u , int v){
         vector<vector<int> > graph0 = g.graphNE;
+	vector<int> ListNoeuds = g.nodes;
+	cout<< "nb_noeuds" <<ListNoeuds.size() <<endl;
+	/*for(cpt=0; cpt < ListNoeuds.size();cpt++){
+	    if(u==ListNoeuds[cpt])
+		u=ListNoeuds[cpt];
+	    if(v==ListNoeuds[cpt])
+		v=ListNoeuds[cpt];
+	}*/
+	
 	vector<int> nodeU=graph0[u];
 	vector<int> nodeV=graph0[v];
 	nodeU.push_back(v-1);
 	nodeV.push_back(u-1);
 	graph0[u] = nodeU;
 	graph0[v] = nodeV;
-	g.graphNE = graph0;	
+	g.graphNE = graph0;
 }
 
-void addNode(graph &g){
+void addNode(graph &g, int noeud){
     vector<vector<int> > graph0;
     vector<int> node;
     graph0 = g.graphNE; 
     graph0.push_back(node);
     g.graphNE = graph0;
+    
+    node = g.nodes;
+    node.push_back(noeud);
+    g.nodes = node;
+}
+/*
+//void cpyNodes(graph g, graph &gprime, int u);
+void cpyNodes(graph g, graph &gprime, int u, int v){
+    
+}
+//void cpyEdges(graph g, graph &gprime, int u);
+void cpyEdges(graph g, graph &gprime, int u, int v);
+*/
+int noeudGraph(int noeud){
+
+    return noeud;
 }
 
 void printVect(vector<int> p_vector){
@@ -80,9 +105,10 @@ void printVect(vector<int> p_vector){
 
 void printGraph(graph g){
     vector<vector<int> > grahToPrint = g.graphNE;
+    vector<int> node = g.nodes;
     unsigned int cpt;
     for(cpt=0 ; cpt<grahToPrint.size(); cpt++){
-        cout << cpt << " : ";
+        cout << node[cpt] << " : ";
         printVect(grahToPrint.at(cpt));
     }
 }

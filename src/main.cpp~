@@ -102,11 +102,11 @@ int main( int argc, char * argv[] )
 	/**
 	  * 	MAIN 
 	 **/
-	
+	std::cout << "TEST";
 	construct_Rand(g);
 	
 	printGraph(g);
 	std::cout << std::endl;
-	std::cout << "m = " << compute_Edges(g)<< "_ Delta(G) = "<<"_ d_M(G) = " << compute_AVG_Card(g)  << std::endl;
+	std::cout << "m = " << compute_Edges(g)<< "_ Delta(G) = "<< compute_Max_Card(g) << "_ d_M(G) = " << compute_AVG_Card(g)  << std::endl;
 	return 0;
 }
