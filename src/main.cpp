@@ -94,7 +94,7 @@ int main( int argc, char * argv[] )
 		iss >> time;
 	}
 	
-	graph g;
+	graph g , gprime;
 	g.n = nodes;
 	g.p = edges;
 	g.algo = algo;
@@ -102,10 +102,19 @@ int main( int argc, char * argv[] )
 	/**
 	  * 	MAIN 
 	 **/
-	//std::cout << "TEST";
+
 	construct_Rand(g);
-	
+	std::cout<< "Graph 1 : " << std::endl;
 	printGraph(g);
+	
+	
+	cpyNodes(g, gprime, 0 , 1 );
+	cpyEdges(g, gprime, 0 , 1 );
+	vector<int> test2 = gprime.nodes;
+	
+	std::cout<< "Graph 2 : " << std::endl;
+	printGraph(gprime);
+
 	std::cout << std::endl;
 	std::cout << "m = " << compute_Edges(g)<< "_ Delta(G) = "<< compute_Max_Card(g) << "_ d_M(G) = " << compute_AVG_Card(g)  << std::endl;
 	return 0;
