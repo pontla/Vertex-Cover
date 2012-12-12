@@ -20,7 +20,8 @@
     }
 
     int compute_Edges(graph g){
-	int nbEdges = 0 , cpt;
+	int nbEdges = 0;
+	unsigned int cpt;
 
 	graphCpy = g.graphNE;
 	
@@ -51,12 +52,12 @@
 	return average;
     }
 
+    // u et v sont des indices
     void addEdge(graph &g, int u , int v){
 	    int uprime , vprime;
 	    vector<vector<int> > graph0 = g.graphNE;
 	    
 	    //On récupère les listes d'arêtes correspondants aux indices u et v
-	    cout<< " DBGaddEdge valeurs :" << u << v  << " indices :" << indiceNoeud(g,u) << " " << indiceNoeud(g,v) << endl;
 	    vector<int> edgeU=graph0[indiceNoeud(g,u)];
 	    vector<int> edgeV=graph0[indiceNoeud(g,v)];
 
@@ -64,8 +65,8 @@
 	    vprime = v;	
 
 	    //On ajoute la valeur des noeuds aux listes d'arêtes
-	    edgeU.push_back(vprime-1);
-	    edgeV.push_back(uprime-1);
+	    edgeU.push_back(vprime);
+	    edgeV.push_back(uprime);
 	    
 	    //Mise à jour du graph
 	    graph0[indiceNoeud(g,u)] = edgeU;
@@ -75,8 +76,8 @@
 
     void addNode(graph &g, int noeud){
 	vector<vector<int> > graph0;
-	vector<int> node;
-	graph0 = g.graphNE; 
+	vector<int> node ;
+	graph0 = g.graphNE;
 	graph0.push_back(node);
 	g.graphNE = graph0;
 	
@@ -85,35 +86,53 @@
 	g.nodes = node;
     }
 
-    //void cpyNodes(graph g, graph &gprime, int u);
-    void cpyNodes(graph g, graph &gprime, int u, int v){
-	int cpt;
+
+    // u et v sont les poids
+    void cpyNodes(graph g, graph &gprime,  int u,  int v){
+	unsigned int cpt;
 	vector<int> ListNoeuds = g.nodes , ListNoeudsPrime;
 	for(cpt=0 ; cpt<ListNoeuds.size() ; cpt++){
-	    if(cpt!=u && cpt!=v){
-		ListNoeudsPrime.push_back(poidsNoeud(g,cpt));
+	    if(cpt!= (unsigned int) indiceNoeud(g,u) && cpt!= (unsigned int) indiceNoeud(g,v)){
+		addNode(gprime,poidsNoeud(g,cpt));
+		gprime.n++;
 	    }
 	}
-	gprime.nodes = ListNoeudsPrime ;
+	ListNoeudsPrime = gprime.nodes;
     }
 
-    
-    void cpyEdges(graph g, graph &gprime, int u, int v){
-	int cpt, cpt2;
-	    vector<int> ListNoeuds = g.nodes , ListNoeudsPrime = gprime.nodes , aretes , aretesPrime;
-	    vector<vector<int> > ListAretes = g.graphNE , ListAretesPrime;
+    // u et v sont les poids des noeuds ( valeur ) 
+    void cpyEdges(graph g, graph &gprime,  int u,  int v){
+	unsigned int cpt, cpt2;
+	cout << " u : " << u << v << endl; 
+	vector<int> ListNoeuds = g.nodes ,aretes;
+	vector<vector<int> > ListAretes = g.graphNE;
 	    
-	    for(cpt=0 ; cpt<ListNoeuds.size() ; cpt++){
+	for(cpt=0 ; cpt<ListNoeuds.size() ; cpt++){
+	    if(cpt != (unsigned int)indiceNoeud(g,u) && cpt !=(unsigned int) indiceNoeud(g,v)){
 		aretes = ListAretes[cpt];
 		for(cpt2=0 ; cpt2<aretes.size() ; cpt2++){
-		    if(cpt2 != u && cpt2 != v){
-			cout << " cpyEdges : " << cpt << cpt2 << " " << poidsNoeud(g,cpt) << " " <<  poidsNoeud(g,cpt2)<< endl; 
-			addEdge(gprime,poidsNoeud(g,cpt), poidsNoeud(g,cpt2));
-		
-			}
+		    if(aretes[cpt2] != (unsigned int)u && aretes[cpt2] !=(unsigned int) v && poidsNoeud(g,cpt) > aretes[cpt2]){
+			addEdge(gprime,poidsNoeud(g,cpt), aretes[cpt2]);
 		    }
-	    }   
+		}
+	    }
+	}   
     }
+    
+    // verifie l'existance d'une arete u et v sont les valeurs des noeuds
+ /*   bool e_Edge(graph g, int u, int v){
+	vector<vector<int> > graph0 = g.graphNE;
+	unsigned int cpt;    
+	//On récupère les listes d'arêtes correspondants aux indices u
+	vector<int> edgeU=graph0[indiceNoeud(g,u)];
+	for(cpt  = 0 ; cpt < edgeU.size() ; cpt ++ ){
+	    cout << " edgeU[cpt] : " << edgeU[cpt] << " " << v << endl;
+	    if(edgeU[cpt] == v){
+		return true ;
+	    }
+	}
+	return false;
+    }*/
 
     int poidsNoeud(graph g, int indice){
 	edgeCpy = g.nodes;    
@@ -122,8 +141,8 @@
 
     int indiceNoeud(graph g, int noeud){
 	vector<int> ListNoeuds = g.nodes;
-	int cpt;
-	for(cpt=0; cpt<g.n ; cpt++){
+	unsigned int cpt;
+	for(cpt=0; cpt<ListNoeuds.size() ; cpt++){
 	    if(noeud == ListNoeuds[cpt])
 		return cpt;
 	}
@@ -133,9 +152,9 @@
     void printVect(vector<int> p_vector){
 	unsigned int cpt;
 	for(cpt=0 ; cpt<p_vector.size(); cpt++){
-	    cout << p_vector[cpt]+1 << " " ;
+	    cout << p_vector[cpt] << " " ;
 	}
-	cout << endl;
+	cout <<endl;
     }
 
     void printGraph(graph g){
