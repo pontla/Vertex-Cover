@@ -6,6 +6,7 @@
 #include <ctime>
 #include "arguments.hpp"
 #include "graphAl.hpp"
+#include "twoApprox-vc.hpp"
 
 #define _DEBUG 0
 
@@ -103,21 +104,12 @@ int main( int argc, char * argv[] )
 	  * 	MAIN 
 	 **/
 
+
 	construct_Rand(g);
 	std::cout<< "Graph 1 : " << std::endl;
 	printGraph(g);
-
-	cpyNodes(g, gprime, 0 , 1 );
-	cpyEdges(g, gprime, 0 , 1 );
 	
-	cpyNodes(gprime, g2 , 2 , 3 );
-	cpyEdges(gprime, g2, 2 , 3);
-
-	std::cout<< "Graph 2 : " << std::endl;
-	printGraph(gprime);
-	
-	std::cout<< "Graph 3 : " << std::endl;
-	printGraph(g2);
+	TwoApprox(g);
 
 	std::cout << std::endl;
 	std::cout << "m = " << compute_Edges(g)<< "_ Delta(G) = "<< compute_Max_Card(g) << "_ d_M(G) = " << compute_AVG_Card(g)  << std::endl;

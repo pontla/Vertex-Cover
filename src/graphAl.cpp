@@ -103,7 +103,6 @@
     // u et v sont les poids des noeuds ( valeur ) 
     void cpyEdges(graph g, graph &gprime,  int u,  int v){
 	unsigned int cpt, cpt2;
-	cout << " u : " << u << v << endl; 
 	vector<int> ListNoeuds = g.nodes ,aretes;
 	vector<vector<int> > ListAretes = g.graphNE;
 	    
@@ -161,6 +160,7 @@
 	vector<vector<int> > grahToPrint = g.graphNE;
 	vector<int> node = g.nodes;
 	unsigned int cpt;
+	cout << " Print Graph : " << endl;
 	for(cpt=0 ; cpt<grahToPrint.size(); cpt++){
 	    cout << node[cpt] << " : ";
 	    printVect(grahToPrint.at(cpt));
