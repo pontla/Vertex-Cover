@@ -1,0 +1,53 @@
+Projet de TP Computability and Complexity
+par Julien Richardeau et Quentin Gautier
+
+Implémentation d'algorithmes de résolution de Vertex-Cover
+
+
+Rapport :                 fichier  rapport.pdf
+Exécutable :              fichier  vc
+Graphiques du rapport :   dossier  /doc
+Sources + en-têtes :      dossiers /src et /include
+
+
+
+=== Compilation ===
+
+Le programme a été codé en C++ et compilé sous Ubuntu 11.10 oneiric.
+
+Pour compiler :
+	make
+
+
+
+=== Exécution ===
+
+Pour afficher l'aide :
+	./VC
+
+Usage: 
+        ./VC [-n <#nodes>] [-p <#edges>] [-pn <bool>] [-algo <algorithm>] [-time <time>]
+
+        -n <#nodes>
+                Nombre de noeuds que le programme generera.
+        -p <#edges>
+                Nombre d'aretes sachant "n", étant le nombre de noeuds
+        -pn <bool>
+                0 si p ne depend pas de n, 1 sinon
+        -algo <algorithm>
+                Algorithm de VC a executer :
+                         -[kernel] : pour l'algorithme de Kernelization
+                         -[arb] : pour l'algorithme VCA
+                         -[twoapprox] : pour l'algorithme de 2-approximation
+                         -[heuristique] : pour l'algorithme heuristique au choix
+        -time <time>
+                Temps pour un run.
+                (defaut:3minutes)
+
+
+
+=== Exemples ===
+
+Un graphe à 100 noeuds avec une proba par couples de noeuds de 3/100 d'avoir une arête, résolu par
+l'algorithme de Kernelization avec un temps maxi de 3 minutes: 
+    ./VC  -n 100 -p 3 -pn 1 -algo kernel - time 3
