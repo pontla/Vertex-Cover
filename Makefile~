@@ -1,13 +1,13 @@
 CC=g++
-CFLAGS=-W -Wall -ansi -pedantic -Iinclude -O3
+CFLAGS=-W -Wall -ansi -pedantic -Iinclude
 LDFLAGS=
-EXEC=scp
+EXEC=VC
 SRC=$(wildcard src/*.cpp)
 OBJ=$(SRC:.cpp=.o)
 
 all: $(EXEC)
 
-scp: $(OBJ)
+VC: $(OBJ)
 	$(CC) -o $@ $^ $(LDFLAGS)
 
 src/%.o: src/%.cpp

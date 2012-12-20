@@ -7,14 +7,15 @@
 #include "arguments.hpp"
 #include "graphAl.hpp"
 #include "twoApprox-vc.hpp"
+#include "monheur-vc.hpp"
+#include "arb-vc.hpp"
 
 #define _DEBUG 0
-
 int main( int argc, char * argv[] )
 {
-	int  time = 3, nodes=0, algo = 0;
+	int  time = 3, nodes=0, algo = 0, k1 , k2 , k3 , k4;
 	double edges;
-	bool test = false, pFunctN;
+	bool test = false, pFunctN ;
 	std::string algorithme;
 	Arguments args( argc, argv );
 	std::ifstream file;
@@ -104,14 +105,20 @@ int main( int argc, char * argv[] )
 	  * 	MAIN 
 	 **/
 
-
-	construct_Rand(g);
-	std::cout<< "Graph 1 : " << std::endl;
-	printGraph(g);
 	
-	TwoApprox(g);
+	construct_Rand(g);	
+	printGraph(g);
 
+	cleanEptyNodes(g);
+	std::cout<< "Graph 1 : " << std::endl;
+	k1 = TwoApprox(g);
+	std::cout << " k = " << k1 << endl;
+	k2 = meilleurK(g);
+	std::cout << " k = " << k2 << endl;
+	k3= dichotomie(g,k1 , k2);
+	std::cout << " k = " << k3 ; 
 	std::cout << std::endl;
 	std::cout << "m = " << compute_Edges(g)<< "_ Delta(G) = "<< compute_Max_Card(g) << "_ d_M(G) = " << compute_AVG_Card(g)  << std::endl;
 	return 0;
 }
+
