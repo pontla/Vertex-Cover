@@ -5,5 +5,5 @@
 
 bool arbvc(graph &g, int k);
 int dichotomie(graph &g, int k, int k2);
-
+bool graphTaille2(graph g, int k);
 #endif

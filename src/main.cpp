@@ -108,12 +108,11 @@ int main( int argc, char * argv[] )
 	
 	construct_Rand(g);	
 	printGraph(g);
-
 	cleanEptyNodes(g);
-	std::cout<< "Graph 1 : " << std::endl;
+	
 	k1 = TwoApprox(g);
 	std::cout << " k = " << k1 << endl;
-	k2 = meilleurK(g);
+	k2 = heuristique(g);
 	std::cout << " k = " << k2 << endl;
 	k3= dichotomie(g,k1 , k2);
 	std::cout << " k = " << k3 ; 
