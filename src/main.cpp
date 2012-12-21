@@ -20,7 +20,7 @@ int main( int argc, char * argv[] )
 	Arguments args( argc, argv );
 	std::ifstream file;
 	std::string rmspace( 60, ' ' );
-
+	
 	/**
 	 * 	PARSER 
 	 */
@@ -33,7 +33,7 @@ int main( int argc, char * argv[] )
 		    
 	}
 	
-	if ( !args.exists( "algo" ) || !args.exists( "n" ) || !args.exists( "p" )|| !args.exists("pn") || !test)
+	if ( !args.exists( "algo" ) || !args.exists( "n" ) || !args.exists( "p" )|| !args.exists("pn") || !args.exists("time") || !test)
 	{
 		std::cout << "Usage: " << std::endl << '\t'
 			<< argv[0] << " [-n <#nodes>] [-p <#edges>] [-pn <bool>] [-algo <algorithm>] [-time <time>]" << std::endl
@@ -100,22 +100,29 @@ int main( int argc, char * argv[] )
 	g.n = nodes;
 	g.p = edges;
 	g.algo = algo;
+	g.time = time * 60;
 	
 	/**
 	  * 	MAIN 
 	 **/
 
-	
 	construct_Rand(g);	
 	printGraph(g);
 	cleanEptyNodes(g);
-	
+	//(double)(tend - tstart) / (double)CLOCKS_PER_SEC
+
 	k1 = TwoApprox(g);
+	
 	std::cout << " k = " << k1 << endl;
+
 	k2 = heuristique(g);
 	std::cout << " k = " << k2 << endl;
-	k3= dichotomie(g,k1 , k2);
-	std::cout << " k = " << k3 ; 
+
+	k3= dichotomieARBVC(g,k1, k2);
+
+	std::cout << " k = " << k3 << endl;
+
+	
 	std::cout << std::endl;
 	std::cout << "m = " << compute_Edges(g)<< "_ Delta(G) = "<< compute_Max_Card(g) << "_ d_M(G) = " << compute_AVG_Card(g)  << std::endl;
 	return 0;

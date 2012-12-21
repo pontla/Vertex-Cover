@@ -10,7 +10,7 @@ using namespace std;
 
 
 struct graph{
-    unsigned int n, algo;
+    unsigned int n, algo, time;
     double p;
     vector<vector<int > > graphNE ;
    // vector<bool> noeudActif; // tri de la plus grande à la plus petite .
